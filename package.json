@@ -8,7 +8,8 @@
   "main": "index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src/index.js -o index.js"
+    "transpile": "./node_modules/.bin/babel src/index.js -o index.js",
+    "prepublish": "npm run transpile"
   },
   "author": {
     "name": "Y3G",
