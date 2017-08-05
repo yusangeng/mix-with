@@ -1,6 +1,6 @@
 {
   "name": "mix-with",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A mixin helper for es6 class.",
   "repository": {
     "url": "https://github.com/yusangeng/mix-with.git"
@@ -15,9 +15,9 @@
     "email": "yusangeng@outlook.com"
   },
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1"
-  }
+  },
+  "dependencies": {}
 }
