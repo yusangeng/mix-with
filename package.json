@@ -1,11 +1,11 @@
 {
   "name": "mix-with",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A mixin helper for es6 class.",
   "repository": {
     "url": "https://github.com/yusangeng/mix-with.git"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
     "transpile": "./node_modules/.bin/babel src/index.js -o index.js",
