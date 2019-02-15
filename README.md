@@ -52,11 +52,11 @@ import mix from 'mix-with'
 
 class Foo { foo = 'foo' }
 
-const Bar = (superclass) => class Bar extends $(superclass) {
+const Bar = (superclass) => class Bar extends superclass {
   bar: string = 'bar'
 }
 
-const Baz = (superclass) => class Baz extends $(superclass) {
+const Baz = (superclass) => class Baz extends superclass {
   baz: string = 'baz'
 }
 
