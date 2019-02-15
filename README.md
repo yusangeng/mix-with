@@ -53,11 +53,11 @@ import mix from 'mix-with'
 class Foo { foo = 'foo' }
 
 const Bar = (superclass) => class Bar extends superclass {
-  bar: string = 'bar'
+  bar = 'bar'
 }
 
 const Baz = (superclass) => class Baz extends superclass {
-  baz: string = 'baz'
+  baz = 'baz'
 }
 
 const Foobar = mix(Foo).with(Bar, Baz)
