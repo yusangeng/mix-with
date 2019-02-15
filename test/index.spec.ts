@@ -5,6 +5,11 @@ import { mix, C, $ } from '../src'
 chai.should()
 
 describe('mix', () => {
+  it('should throw', async () => {
+    const fn = () => mix(1 as any)
+    fn.should.throws()
+  })
+
   it('result class should have all properties & methods', async () => {
     class Foo {
       a: number = 1
@@ -38,7 +43,7 @@ describe('mix', () => {
 
     const BarBaz = mix().with(Bar, Baz)
     const bz = new BarBaz()
-    
+
     bz.d().should.be.eq(2)
     bz.f().should.be.eq(3)
   })
