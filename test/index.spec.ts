@@ -35,5 +35,11 @@ describe('mix', () => {
     fbz.b().should.be.eq(1)
     fbz.d().should.be.eq(2)
     fbz.f().should.be.eq(3)
+
+    const BarBaz = mix().with(Bar, Baz)
+    const bz = new BarBaz()
+    
+    bz.d().should.be.eq(2)
+    bz.f().should.be.eq(3)
   })
 })
