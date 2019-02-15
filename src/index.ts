@@ -35,7 +35,7 @@ export function mix<T> (superclass?: Constructible<T>) : With<T> {
 
   return {
     with (...mixins : any[]) {
-      return (mixins || []).reduce((prev, mixin) => mixin(prev), clazz)
+      return mixins.reduce((prev, mixin) => mixin(prev), clazz)
     }
   }
 }
