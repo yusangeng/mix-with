@@ -17,26 +17,18 @@ npm install mix-with --save
 ### typescript
 
 ``` ts
-import {mix, C, $ } from 'mix-with'
+import { mix, Ctor } from 'mix-with'
 
 class Foo {
   foo: string = 'foo'
 }
 
-const Bar = <T>(superclass: C<T>) => {
-  class Bar extends $(superclass) {
-    bar: string = 'bar'
-  }
-
-  return Bar as C<T & Bar>
+const Bar = <T extends Ctor>(superclass: T) => class extends superclass {
+  bar: string = 'bar'
 }
 
-const Baz = <T>(superclass: C<T>) => {
-  class Baz extends $(superclass) {
-    baz: string = 'baz'
-  }
-
-  return Bar as C<T & Baz>
+const Baz = <T extends Ctor>(superclass: T) => class extends superclass {
+  baz: string = 'baz'
 }
 
 const Foobar = mix(Foo).with(Bar, Baz)

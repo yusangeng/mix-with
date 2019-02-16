@@ -1,6 +1,6 @@
 /* global describe it */
 import chai from 'chai'
-import { mix, C, $ } from '../src'
+import { mix, Ctor } from '../src'
 
 chai.should()
 
@@ -9,22 +9,14 @@ class Foo {
   b () { return this.a }
 }
 
-const Bar = <T>(superclass: C<T>) => {
-  class Bar extends $(superclass) {
-    c: number = 2
-    d () { return this.c }
-  }
-  
-  return Bar as C<T & Bar>
+const Bar = <T extends Ctor>(superclass: T) => class extends superclass {
+  c: number = 2
+  d () { return this.c }
 }
 
-const Baz = <T>(superclass: C<T>) => {
-  class Baz extends $(superclass) {
-    e: number = 3
-    f () { return this.e }
-  } 
-
-  return Baz as C<T & Baz>
+const Baz = <T extends Ctor>(superclass: T) => class extends superclass {
+  e: number = 3
+  f () { return this.e }
 }
 
 describe('mix', () => {
