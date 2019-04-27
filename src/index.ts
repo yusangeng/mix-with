@@ -4,36 +4,80 @@
  * @author Y3G
  */
 
+export type Constructor<T = {}> = new (...args: any[]) => T
 
-export type Ctor<T = {}> = new (...args: any[]) => T
+type Catagory<T, M> = (superclass: Constructor<T>) => Constructor<M>
 
-type Instance<C> = C extends new (...args: any[]) => infer R ? R : any
-type Ret<C> = C extends (...args: any[]) => infer R ? R : any
-type IR<M> = Instance<Ret<M>>
+// m为一个接收基类, 返回子类的函数, 形如:
+// const m = (superclass: Constructor) => class extends superclass {
+//   someMixinMethod () {
+//     console.log('hello.')
+//   }  
+// }
+export interface Mixer<superclass extends Constructor> {
+  with<M> (m: Catagory<InstanceType<superclass>, M>) : Constructor<InstanceType<superclass> & M>
 
-export type Mixer<T extends Ctor> = {
-  with<M> (mixin: M) : Ctor<Instance<T> & IR<M>>
-  with<M1, M2> (m1: M1, m2: M2) : Ctor<Instance<T> & IR<M1> & IR<M2>>
-  with<M1, M2, M3> (m1: M1, m2: M2, m3: M3) : Ctor<Instance<T> & IR<M1> & IR<M2> & IR<M3>>
-  with<M1, M2, M3, M4> (m1: M1, m2: M2, m3: M3, m4: M4) : Ctor<Instance<T> & IR<M1> & IR<M2> & IR<M3> & IR<M4>>
-  with<M1, M2, M3, M4, M5> (m1: M1, m2: M2, m3: M3, m4: M4, m5: M5) : Ctor<Instance<T> & IR<M1> & IR<M2> & IR<M3> & IR<M4> & IR<M5>>
-  with<M1, M2, M3, M4, M5, M6> (m1: M1, m2: M2, m3: M3, m4: M4, m5: M5, m6: M6) : Ctor<Instance<T> & IR<M1> & IR<M2> & IR<M3> & IR<M4> & IR<M5> & IR<M6>>
+  with<M1, M2> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>) : Constructor<InstanceType<superclass> & M1 & M2>
+
+  with<M1, M2, M3> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>) : Constructor<InstanceType<superclass> & M1 & M2 & M3>
+
+  with<M1, M2, M3, M4> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>,
+    m4: Catagory<InstanceType<superclass>, M4>) : Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4>
+
+  with<M1, M2, M3, M4, M5> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>,
+    m4: Catagory<InstanceType<superclass>, M4>,
+    m5: Catagory<InstanceType<superclass>, M5>) : Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5>
+
+  with<M1, M2, M3, M4, M5, M6> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>,
+    m4: Catagory<InstanceType<superclass>, M4>,
+    m5: Catagory<InstanceType<superclass>, M5>,
+    m6: Catagory<InstanceType<superclass>, M6>) : Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6>
+
+  with<M1, M2, M3, M4, M5, M6, M7> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>,
+    m4: Catagory<InstanceType<superclass>, M4>,
+    m5: Catagory<InstanceType<superclass>, M5>,
+    m6: Catagory<InstanceType<superclass>, M6>,
+    m7: Catagory<InstanceType<superclass>, M7>) : Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7>
+
+  with<M1, M2, M3, M4, M5, M6, M7, M8> (m1: Catagory<InstanceType<superclass>, M1>,
+    m2: Catagory<InstanceType<superclass>, M2>,
+    m3: Catagory<InstanceType<superclass>, M3>,
+    m4: Catagory<InstanceType<superclass>, M4>,
+    m5: Catagory<InstanceType<superclass>, M5>,
+    m6: Catagory<InstanceType<superclass>, M6>,
+    m7: Catagory<InstanceType<superclass>, M7>,
+    m8: Catagory<InstanceType<superclass>, M8>) : Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M8>
+
 }
 
-export class DefaultSuperClass {}
+class DefaultSuperClass {}
 
-export function mix<T extends Ctor> (superclass?: T) : Mixer<T> {
+type _MixerType<T> = T extends Constructor ? Mixer<T> : never
+type MixerType<T> = T extends undefined ? Mixer<typeof DefaultSuperClass> : _MixerType<T>
+
+export function mix<T extends Constructor> (superclass?: T) : MixerType<T> {
   const clazz = superclass || DefaultSuperClass
   
   if (typeof clazz !== 'function') {
-    throw new TypeError('superclass is NOT a class or null.')
+    throw new TypeError('Argument "superclass" should be a class.')
   }
 
   return {
     with (...mixins : any[]) {
       return mixins.reduce((prev, mixin) => mixin(prev), clazz)
     }
-  }
+  } as MixerType<T>
 }
 
 export default mix

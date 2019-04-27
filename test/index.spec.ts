@@ -1,6 +1,6 @@
 /* global describe it */
 import chai from 'chai'
-import { mix, Ctor } from '../src'
+import { mix, Constructor } from '../src'
 
 chai.should()
 
@@ -9,12 +9,12 @@ class Foo {
   b () { return this.a }
 }
 
-const Bar = <T extends Ctor>(superclass: T) => class extends superclass {
+const Bar = (superclass: Constructor) => class extends superclass {
   c: number = 2
   d () { return this.c }
 }
 
-const Baz = <T extends Ctor>(superclass: T) => class extends superclass {
+const Baz = (superclass: Constructor) => class extends superclass {
   e: number = 3
   f () { return this.e }
 }
