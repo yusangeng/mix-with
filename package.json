@@ -1,7 +1,7 @@
 {
   "name": "mix-with",
-  "version": "3.0.0",
-  "description": "A mixin helper of typescript & es6.",
+  "version": "3.0.1",
+  "description": "A mixin helper for typescript & es6.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.ts",
   "types": "lib",
