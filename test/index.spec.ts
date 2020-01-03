@@ -6,18 +6,26 @@ chai.should()
 
 class Foo {
   a: number = 1
-  b () { return this.a }
+  b() {
+    return this.a
+  }
 }
 
-const Bar = (superclass: Constructor) => class extends superclass {
-  c: number = 2
-  d () { return this.c }
-}
+const Bar = (superclass: Constructor) =>
+  class extends superclass {
+    c: number = 2
+    d() {
+      return this.c
+    }
+  }
 
-const Baz = (superclass: Constructor) => class extends superclass {
-  e: number = 3
-  f () { return this.e }
-}
+const Baz = (superclass: Constructor) =>
+  class extends superclass {
+    e: number = 3
+    f() {
+      return this.e
+    }
+  }
 
 describe('mix', () => {
   it('should throw', async () => {
