@@ -1,6 +1,6 @@
 {
   "name": "mix-with",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A mixin helper for typescript & es6.",
   "main": "lib/index.js",
   "jsnext:main": "src/index.ts",
@@ -18,7 +18,9 @@
     "url": "https://github.com/yusangeng/mix-with.git"
   },
   "keywords": [
-    "mixin", "typescript", "typescript-mixin"
+    "mixin",
+    "typescript",
+    "typescript-mixin"
   ],
   "author": {
     "name": "yusangeng",
