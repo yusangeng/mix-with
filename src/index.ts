@@ -19,59 +19,59 @@ export interface Mixer<superclass extends Constructor> {
 
   with<M1, M2>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>
+    m2: Catagory<InstanceType<superclass> & M1, M2>
   ): Constructor<InstanceType<superclass> & M1 & M2>
 
   with<M1, M2, M3>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>
   ): Constructor<InstanceType<superclass> & M1 & M2 & M3>
 
   with<M1, M2, M3, M4>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>,
-    m4: Catagory<InstanceType<superclass>, M4>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
+    m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>
   ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4>
 
   with<M1, M2, M3, M4, M5>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>,
-    m4: Catagory<InstanceType<superclass>, M4>,
-    m5: Catagory<InstanceType<superclass>, M5>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
+    m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
+    m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>
   ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5>
 
   with<M1, M2, M3, M4, M5, M6>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>,
-    m4: Catagory<InstanceType<superclass>, M4>,
-    m5: Catagory<InstanceType<superclass>, M5>,
-    m6: Catagory<InstanceType<superclass>, M6>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
+    m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
+    m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>,
+    m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>
   ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6>
 
   with<M1, M2, M3, M4, M5, M6, M7>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>,
-    m4: Catagory<InstanceType<superclass>, M4>,
-    m5: Catagory<InstanceType<superclass>, M5>,
-    m6: Catagory<InstanceType<superclass>, M6>,
-    m7: Catagory<InstanceType<superclass>, M7>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
+    m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
+    m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>,
+    m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>,
+    m7: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6, M7>
   ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7>
 
   with<M1, M2, M3, M4, M5, M6, M7, M8>(
     m1: Catagory<InstanceType<superclass>, M1>,
-    m2: Catagory<InstanceType<superclass>, M2>,
-    m3: Catagory<InstanceType<superclass>, M3>,
-    m4: Catagory<InstanceType<superclass>, M4>,
-    m5: Catagory<InstanceType<superclass>, M5>,
-    m6: Catagory<InstanceType<superclass>, M6>,
-    m7: Catagory<InstanceType<superclass>, M7>,
-    m8: Catagory<InstanceType<superclass>, M8>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M8>
+    m2: Catagory<InstanceType<superclass> & M1, M2>,
+    m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
+    m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
+    m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>,
+    m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>,
+    m7: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6, M7>,
+    m8: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7, M8>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8>
 }
 
 class DefaultSuperClass {}
