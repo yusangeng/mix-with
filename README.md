@@ -8,7 +8,7 @@ A mixin helper for typescript & es6.
 
 ## Install
 
-``` bash
+```bash
 npm install mix-with --save
 ```
 
@@ -16,20 +16,26 @@ npm install mix-with --save
 
 ### typescript
 
-``` ts
-import { mix, Constructor } from 'mix-with'
+```ts
+import { mix, mixin } from 'mix-with'
 
 class Foo {
   foo: string = 'foo'
 }
 
-const Bar = (superclass: Constructor) => class extends superclass {
-  bar: string = 'bar'
-}
+const Bar = mixin(
+  superclass =>
+    class extends superclass {
+      bar: string = 'bar'
+    }
+)
 
-const Baz = (superclass: Constructor) => class extends superclass {
-  baz: string = 'baz'
-}
+const Baz = mixin(
+  superclass =>
+    class extends superclass {
+      baz: string = 'baz'
+    }
+)
 
 const Foobar = mix(Foo).with(Bar, Baz)
 const fbz = new Foobar()
@@ -39,18 +45,26 @@ console.log(`${fbz.foo}${fbz.bar}${fbz.baz}`) // => foobarbaz
 
 ### javacript
 
-``` js
-import mix from 'mix-with'
+```js
+import { mix, mixin } from 'mix-with'
 
-class Foo { foo = 'foo' }
-
-const Bar = (superclass) => class Bar extends superclass {
-  bar = 'bar'
+class Foo {
+  foo = 'foo'
 }
 
-const Baz = (superclass) => class Baz extends superclass {
-  baz = 'baz'
-}
+const Bar = mixin(
+  superclass =>
+    class Bar extends superclass {
+      bar = 'bar'
+    }
+)
+
+const Baz = mixin(
+  superclass =>
+    class Baz extends superclass {
+      baz = 'baz'
+    }
+)
 
 const Foobar = mix(Foo).with(Bar, Baz)
 const fbz = new Foobar()
