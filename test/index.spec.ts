@@ -1,6 +1,6 @@
 /* global describe it */
 import chai from 'chai'
-import { mix, Constructor } from '../src'
+import { mix, mixin } from '../src'
 
 chai.should()
 
@@ -11,21 +11,25 @@ class Foo {
   }
 }
 
-const Bar = (superclass: Constructor) =>
-  class extends superclass {
-    c: number = 2
-    d() {
-      return this.c
+const Bar = mixin(
+  superclass =>
+    class extends superclass {
+      c: number = 2
+      d() {
+        return this.c
+      }
     }
-  }
+)
 
-const Baz = (superclass: Constructor) =>
-  class extends superclass {
-    e: number = 3
-    f() {
-      return this.e
+const Baz = mixin(
+  superclass =>
+    class extends superclass {
+      e: number = 3
+      f() {
+        return this.e
+      }
     }
-  }
+)
 
 describe('mix', () => {
   it('should throw', async () => {

@@ -93,4 +93,8 @@ export function mix<T extends Constructor>(superclass?: T): MixerType<T> {
   } as MixerType<T>
 }
 
+export function mixin<T extends Constructor, U extends T>(fn: (superclass: T) => U) {
+  return fn
+}
+
 export default mix
