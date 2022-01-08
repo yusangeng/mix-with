@@ -4,7 +4,9 @@
  * @author yusangeng
  */
 
-export type Constructor<T extends object = object> = new (...args: any[]) => T
+type ConstructorArgTypes<T> = T extends new (...args: infer Args) => any ? Args : never
+
+export type Constructor<Target extends object = object, Args extends any[] = any[]> = new (...args: Args) => Target
 
 type Catagory<T extends object, M extends object> = (superclass: Constructor<T>) => Constructor<M>
 
@@ -17,25 +19,27 @@ type Catagory<T extends object, M extends object> = (superclass: Constructor<T>)
 export interface Mixer<superclass extends Constructor> {
   with(): superclass
 
-  with<M extends object>(m: Catagory<InstanceType<superclass>, M>): Constructor<InstanceType<superclass> & M>
+  with<M extends object>(
+    m: Catagory<InstanceType<superclass>, M>
+  ): Constructor<InstanceType<superclass> & M, ConstructorArgTypes<superclass>>
 
   with<M1 extends object, M2 extends object>(
     m1: Catagory<InstanceType<superclass>, M1>,
     m2: Catagory<InstanceType<superclass> & M1, M2>
-  ): Constructor<InstanceType<superclass> & M1 & M2>
+  ): Constructor<InstanceType<superclass> & M1 & M2, ConstructorArgTypes<superclass>>
 
   with<M1 extends object, M2 extends object, M3 extends object>(
     m1: Catagory<InstanceType<superclass>, M1>,
     m2: Catagory<InstanceType<superclass> & M1, M2>,
     m3: Catagory<InstanceType<superclass> & M1 & M2, M3>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3, ConstructorArgTypes<superclass>>
 
   with<M1 extends object, M2 extends object, M3 extends object, M4 extends object>(
     m1: Catagory<InstanceType<superclass>, M1>,
     m2: Catagory<InstanceType<superclass> & M1, M2>,
     m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
     m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4, ConstructorArgTypes<superclass>>
 
   with<M1 extends object, M2 extends object, M3 extends object, M4 extends object, M5 extends object>(
     m1: Catagory<InstanceType<superclass>, M1>,
@@ -43,7 +47,7 @@ export interface Mixer<superclass extends Constructor> {
     m3: Catagory<InstanceType<superclass> & M1 & M2, M3>,
     m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
     m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, ConstructorArgTypes<superclass>>
 
   with<
     M1 extends object,
@@ -59,7 +63,7 @@ export interface Mixer<superclass extends Constructor> {
     m4: Catagory<InstanceType<superclass> & M1 & M2 & M3, M4>,
     m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>,
     m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6, ConstructorArgTypes<superclass>>
 
   with<
     M1 extends object,
@@ -77,7 +81,7 @@ export interface Mixer<superclass extends Constructor> {
     m5: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4, M5>,
     m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>,
     m7: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6, M7>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7, ConstructorArgTypes<superclass>>
 
   with<
     M1 extends object,
@@ -97,7 +101,7 @@ export interface Mixer<superclass extends Constructor> {
     m6: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5, M6>,
     m7: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6, M7>,
     m8: Catagory<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7, M8>
-  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8>
+  ): Constructor<InstanceType<superclass> & M1 & M2 & M3 & M4 & M5 & M6 & M7 & M8, ConstructorArgTypes<superclass>>
 }
 
 class DefaultSuperClass {}
@@ -107,6 +111,8 @@ type MixerType<T> = T extends undefined ? Mixer<typeof DefaultSuperClass> : _Mix
 
 export function mix<T extends Constructor>(superclass?: T): MixerType<T> {
   const clazz = superclass || DefaultSuperClass
+
+  type CArgs = ConstructorArgTypes<typeof clazz>
 
   if (typeof clazz !== 'function') {
     throw new TypeError('The argument "superclass" of function "mix" should be a class.')

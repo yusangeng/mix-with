@@ -10,7 +10,13 @@ interface IFoo {
 
 class Foo implements IFoo {
   a: number = 1
+
+  constructor(text: string) {
+    console.log(text)
+  }
+
   imFoo() {}
+
   b() {
     return this.a
   }
@@ -54,7 +60,7 @@ describe('mix', () => {
 
   it('FooBarBaz result class should have all properties & methods', async () => {
     const FooBarBaz = mix(Foo).with(Bar, Baz)
-    const fbz = new FooBarBaz()
+    const fbz = new FooBarBaz('x')
 
     fbz.b().should.be.eq(1)
     fbz.d().should.be.eq(2)
@@ -71,7 +77,7 @@ describe('mix', () => {
 
   it('FooCopy result class should have all properties & methods', async () => {
     const FooCopy = mix(Foo).with()
-    const f = new FooCopy()
+    const f = new FooCopy('x')
 
     f.b().should.be.eq(1)
   })
