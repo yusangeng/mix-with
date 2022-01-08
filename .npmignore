@@ -2,10 +2,13 @@ node_modules
 coverage
 .nyc_output
 .vscode
+yarn.lock
 package-lock.json
-test
-src
 .gitignore
+.eslintrc.js
 .prettierrc
-travis.yml
+.travis.yml
 tsconfig.json
+.github
+src
+test
