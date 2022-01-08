@@ -1,6 +1,6 @@
 /* global describe it */
 import chai from 'chai'
-import { mix, mixin } from '../src'
+import { mix, catagory } from '../src'
 
 chai.should()
 
@@ -11,7 +11,7 @@ class Foo {
   }
 }
 
-const Bar = mixin(
+const Bar = catagory(
   superclass =>
     class extends superclass {
       c: number = 2
@@ -21,7 +21,7 @@ const Bar = mixin(
     }
 )
 
-const Baz = mixin(
+const Baz = catagory(
   superclass =>
     class extends superclass {
       e: number = 3
