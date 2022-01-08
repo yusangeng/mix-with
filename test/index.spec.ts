@@ -1,17 +1,32 @@
 /* global describe it */
 import chai from 'chai'
-import { mix, catagory } from '../src'
+import { mix, catagory, Constructor } from '../src'
 
 chai.should()
 
-class Foo {
+interface IFoo {
+  imFoo(): void
+}
+
+class Foo implements IFoo {
   a: number = 1
+  imFoo() {}
   b() {
     return this.a
   }
 }
 
 const Bar = catagory(
+  (superclass: Constructor<IFoo>) =>
+    class extends superclass {
+      c: number = 2
+      d() {
+        return this.c
+      }
+    }
+)
+
+const Bar2 = catagory(
   superclass =>
     class extends superclass {
       c: number = 2
@@ -47,7 +62,7 @@ describe('mix', () => {
   })
 
   it('BarBaz result class should have all properties & methods', async () => {
-    const BarBaz = mix().with(Bar, Baz)
+    const BarBaz = mix().with(Bar2, Baz)
     const bz = new BarBaz()
 
     bz.d().should.be.eq(2)
@@ -55,7 +70,7 @@ describe('mix', () => {
   })
 
   it('FooCopy result class should have all properties & methods', async () => {
-    const FooCopy = (mix(Foo).with as any)()
+    const FooCopy = mix(Foo).with()
     const f = new FooCopy()
 
     f.b().should.be.eq(1)

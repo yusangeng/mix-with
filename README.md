@@ -14,7 +14,7 @@ npm install mix-with --save
 
 ## Usage
 
-### typescript
+### Basic usage
 
 ```ts
 import { mix, catagory } from 'mix-with'
@@ -43,27 +43,34 @@ const fbz = new Foobar()
 console.log(`${fbz.foo}${fbz.bar}${fbz.baz}`) // => foobarbaz
 ```
 
-### javacript
+### Type constraint of superclass
 
-```js
-import { mix } from 'mix-with'
+```ts
+import { mix, catagory, Constructor } from 'mix-with'
 
-class Foo {
-  foo = 'foo'
+interface ISuperClass {
+  isSuperClass(): boolean
 }
 
-const Bar = superclass =>
-  class Bar extends superclass {
-    bar = 'bar'
+class Foo implement ISuperClass {
+  foo: string = 'foo'
+  isSuperClass() {
+    return true
   }
+}
 
-const Baz = superclass =>
-  class Baz extends superclass {
-    baz = 'baz'
-  }
+class FakeFoo {
+  foo: string = 'foo'
+}
 
-const Foobar = mix(Foo).with(Bar, Baz)
-const fbz = new Foobar()
+// Type constraint of superclass
+const Bar = catagory(
+  (superclass: Constructor<ISuperClass>) =>
+    class extends superclass {
+      bar: string = 'bar'
+    }
+)
 
-console.log(`${fbz.foo}${fbz.bar}${fbz.baz}`) // => foobarbaz
+const Foobar = mix(Foo).with(Bar) // Ok
+const AnotherFoobar = mix(FakeFoo).with(Bar) // => TSError
 ```

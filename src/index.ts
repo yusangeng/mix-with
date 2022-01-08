@@ -15,6 +15,8 @@ type Catagory<T extends object, M extends object> = (superclass: Constructor<T>)
 //   }
 // }
 export interface Mixer<superclass extends Constructor> {
+  with(): superclass
+
   with<M extends object>(m: Catagory<InstanceType<superclass>, M>): Constructor<InstanceType<superclass> & M>
 
   with<M1 extends object, M2 extends object>(
@@ -117,7 +119,7 @@ export function mix<T extends Constructor>(superclass?: T): MixerType<T> {
   } as MixerType<T>
 }
 
-export function catagory<T extends Constructor, U extends T>(fn: (superclass: T) => U) {
+export function catagory<T extends object, U extends T>(fn: (superclass: Constructor<T>) => Constructor<U>) {
   return fn
 }
 
