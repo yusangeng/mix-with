@@ -1,6 +1,6 @@
 {
   "name": "mix-with",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "A type-safe mixin helper function.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
