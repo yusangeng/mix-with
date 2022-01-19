@@ -76,8 +76,8 @@ const Baz = catagory(
     }
 )
 
-const Foobar = mix(Foo).with(Bar, Baz)
-const fbz = new Foobar()
+const Foobarbaz = mix(Foo).with(Bar, Baz)
+const fbz = new Foobarbaz()
 
 console.log(`${fbz.foo}${fbz.bar}${fbz.baz}`) // => foobarbaz
 ```
@@ -151,6 +151,6 @@ const Bar = catagory(
 
 const Foobar = mix(Foo).with(Bar)
 
-const foobar = new Foobae('somt text') // OK
-const errorFoobar = new Foobae() // TSError
+const foobar = new Foobar('somt text') // OK
+const errorFoobar = new Foobar() // TSError
 ```
