@@ -112,8 +112,6 @@ type MixerType<T> = T extends undefined ? Mixer<typeof DefaultSuperClass> : _Mix
 export function mix<T extends Constructor>(superclass?: T): MixerType<T> {
   const clazz = superclass || DefaultSuperClass
 
-  type CArgs = ConstructorArgTypes<typeof clazz>
-
   if (typeof clazz !== 'function') {
     throw new TypeError('The argument "superclass" of function "mix" should be a class.')
   }
