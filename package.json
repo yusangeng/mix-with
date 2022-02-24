@@ -1,11 +1,14 @@
 {
   "name": "mix-with",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "A type-safe mixin helper function.",
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "types": "types/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": "./esm/index.js"
+  },
   "scripts": {
     "lint": "eslint --fix ./src && prettier --write ./src",
     "test": "cross-env TS_NODE_PROJECT='./tsconfig.test.json' nyc mocha",
