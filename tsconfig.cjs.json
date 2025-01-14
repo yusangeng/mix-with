@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "module": "commonjs",
     "outDir": "cjs",
     "declaration": false
