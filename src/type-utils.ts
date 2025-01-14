@@ -8,4 +8,6 @@ export type ConstructorArgTypes<T> = T extends new (...args: infer Args) => any 
 
 export type Constructor<Target extends object = object, Args extends any[] = any[]> = new (...args: Args) => Target
 
-export type Catagory<T extends object, M extends object> = (superclass: Constructor<T>) => Constructor<M>
+export type MergeElementTypes<T extends any[]> = T extends [infer First, ...infer Rest]
+  ? First & MergeElementTypes<Rest>
+  : unknown
