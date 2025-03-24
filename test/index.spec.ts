@@ -15,7 +15,9 @@ class Foo implements IFoo {
     console.log(text)
   }
 
-  imFoo() {}
+  imFoo() {
+    return true
+  }
 
   b() {
     return this.a
@@ -35,7 +37,7 @@ const Bar = catagory(
 const Bar2 = catagory(
   superclass =>
     class extends superclass {
-      c: number = 2
+      c: number = 2.5
       d() {
         return this.c
       }
@@ -62,6 +64,8 @@ describe('mix', () => {
     const FooBarBaz = mix(Foo).with(Bar, Baz)
     const fbz = new FooBarBaz('x')
 
+    fbz.imFoo().should.be.eq(true)
+
     fbz.b().should.be.eq(1)
     fbz.d().should.be.eq(2)
     fbz.f().should.be.eq(3)
@@ -71,8 +75,17 @@ describe('mix', () => {
     const BarBaz = mix().with(Bar2, Baz)
     const bz = new BarBaz()
 
-    bz.d().should.be.eq(2)
+    bz.d().should.be.eq(2.5)
     bz.f().should.be.eq(3)
+  })
+
+  it("BarBar2 should override Bar's c property with 2.5", async () => {
+    const BarBar2 = mix(Foo).with(Bar, Bar2)
+    const bb = new BarBar2("")
+
+    // 验证混入顺序：后混入的Bar2会覆盖前一个Bar的c属性
+    bb.d().should.be.eq(2.5)
+    bb.c.should.be.eq(2.5)
   })
 
   it('FooCopy result class should have all properties & methods', async () => {
